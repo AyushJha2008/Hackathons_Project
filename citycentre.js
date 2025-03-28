@@ -1,21 +1,46 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const traffic = document.querySelector('.traffic-button');
+    const weather = document.querySelector('.weather-button');
+    const pollution = document.querySelector('.pollution-button');
+
+    if (traffic) {
+        traffic.addEventListener('click', () => {
+            window.location.href = 'traffic.html';
+        });
+    }
+
+    if (weather) {
+        weather.addEventListener('click', () => {
+            window.location.href = 'weather.html';
+        });
+    }
+
+    if (pollution) {
+        pollution.addEventListener('click', () => {
+            window.location.href = 'pollution.html';
+        });
+    }
+});
+
 const trafficButton = document.querySelector('.traffic-button');
 const weatherButton = document.querySelector('.weather-button');
 const pollutionButton = document.querySelector('.pollution-button');
-const alertSection = document.querySelector('.alert-section');
+const alertSection = document.querySelector('.alert-button');
+const trafficAlert = document.querySelector('traffic-alert');
 const driverMode = document.querySelector('.driver-mode');
 const communityChat = document.querySelector('.community-chat');
 const emergencyServices = document.querySelector('.emergency-services');
 
 
-traffic.addEventListener('click', () => {
+trafficButton.addEventListener('click', () => {
     window.location.href = './traffic.html';
 });
 
-weather.addEventListener('click', () => {
+weatherButton.addEventListener('click', () => {
     window.location.href = './weather.html';
 });
 
-pollution.addEventListener('click', () => {
+pollutionButton.addEventListener('click', () => {
     window.location.href = './pollution.html';
 });
 

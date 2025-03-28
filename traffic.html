@@ -3,9 +3,51 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Traffic Finder</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_GOOGLE_MAPS_API_KEY&libraries=places"></script>
+
+    <style>
+        #map {
+            height: 500px;
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
-    <div><h1>TRAFFIC DETAIL</h1></div>
+    <input type="text" id="destination" placeholder="Enter Destination">
+    <button onclick="findTraffic()">Find Traffic</button>
+    <div id="map"></div>
+
+    <script>
+        let map;
+        
+        function initMap() {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 12.9716, lng: 77.5946 }, // Default: Bangalore
+                zoom: 12
+            });
+
+            // Add Traffic Layer
+            const trafficLayer = new google.maps.TrafficLayer();
+            trafficLayer.setMap(map);
+        }
+
+        function findTraffic() {
+            let destination = document.getElementById("destination").value;
+            const geocoder = new google.maps.Geocoder();
+
+            geocoder.geocode({ address: destination }, (results, status) => {
+                if (status === "OK") {
+                    let location = results[0].geometry.location;
+                    map.setCenter(location);
+                    new google.maps.Marker({ position: location, map: map });
+                } else {
+                    alert("Geocode was not successful: " + status);
+                }
+            });
+        }
+
+        window.onload = initMap;
+    </script>
 </body>
 </html>

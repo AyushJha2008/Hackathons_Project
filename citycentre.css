@@ -112,3 +112,8 @@ button{
 }
 
 
+.traffic-body{
+    background-color: aquamarine;
+    height: 100vh;
+    width: 100vw;
+}
