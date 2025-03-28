@@ -2,6 +2,7 @@
     --primary-color: #27bfc2;
     --secondary-color: #474ce1;
     --accent-color: #06f646;
+    --alert-color: #ff4d4d;
     --background-color: #f4f4f8;
     --text-color: #333;
 }
@@ -58,7 +59,7 @@ body {
 }
 
 .menu-btn:hover {
-    background-color: darken(var(--accent-color), 10%);
+    background-color: #05d83c;
 }
 
 .dashboard {
@@ -78,6 +79,12 @@ body {
     overflow: hidden;
     position: relative;
     height: 300px;
+    transition: transform 0.3s ease;
+}
+
+.dashboard-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
 .card-header {
@@ -91,15 +98,17 @@ body {
     padding: 15px;
     z-index: 10;
     color: white;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
 }
 
 .card-header h2 {
     font-size: 1.25rem;
     font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.5);
 }
 
 .card-action-btn {
-    background-color: rgba(255,255,255,0.2);
+    background-color: var(--secondary-color);
     border: none;
     border-radius: 8px;
     padding: 8px 12px;
@@ -108,6 +117,11 @@ body {
     gap: 8px;
     color: white;
     cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.card-action-btn:hover {
+    background-color: #3b3fbf;
 }
 
 .card-background {
@@ -124,30 +138,39 @@ body {
 .traffic-bg { background-image: url('./traffic.jpg'); }
 .weather-bg { background-image: url('./weather.png'); }
 .pollution-bg { background-image: url('./pollution.jpg'); }
+.alert-bg { background-image: url('./alert.png'); background-color: var(--alert-color); }
 
-.alerts-card {
-    grid-column: span 2;
-    background-color: #ff4d4d;
-    color: white;
+.card-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+    padding: 20px 15px;
 }
 
 .alert-buttons {
-    position: absolute;
-    bottom: 15px;
-    left: 15px;
-    right: 15px;
     display: flex;
+    flex-direction: column;
     gap: 10px;
 }
 
 .alert-type {
-    flex: 1;
     background-color: rgba(255,255,255,0.2);
     border: none;
     border-radius: 8px;
     padding: 10px;
     color: white;
     cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.traffic-alert { background-color: #ff8c00; }
+.mishap-alert { background-color: #ff4500; }
+.calamity-alert { background-color: #b22222; }
+
+.alert-type:hover {
+    background-color: rgba(255,255,255,0.3);
 }
 
 .footer {
@@ -155,10 +178,19 @@ body {
     color: white;
     text-align: center;
     padding: 15px 0;
+    margin-top: 20px;
 }
 
 @media (max-width: 768px) {
     .dashboard-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .top-menu {
+        flex-wrap: wrap;
+    }
+    
+    .menu-btn {
+        flex: 1 0 45%;
     }
 }
