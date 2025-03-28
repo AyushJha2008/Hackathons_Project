@@ -1,0 +1,50 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+}
+.nav-bar{
+    background-color: #27bfc2;
+    color: #000000;
+    padding: 10px 20px;
+    text-align: center;
+    height: 4 rem;
+    width: 100vw;
+}
+
+.main-content{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.traffic{
+    height: 20rem;
+    width: 15rem;
+    background-color: darksalmon;
+}
+
+.weather{
+    height: 20rem;
+    width: 15rem;
+    background-color: rgb(122, 229, 233);
+}
+
+.pollution{
+    height: 20rem;
+    width: 15rem;
+    background-color: rgb(185, 189, 189);
+}
+
+.alert-section{
+    height: 20rem;
+    width: 15rem;
+    background-color: rgb(255, 0, 0);
+}
+
+
