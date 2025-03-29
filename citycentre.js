@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
         mishapAlert: document.querySelector('.mishap-alert'),
         calamityAlert: document.querySelector('.calamity-alert'),
         driverMode: document.querySelector('.driver-mode-btn'),
-        communityChat: document.querySelector('.community-btn'),
+        community: document.querySelector('.community-btn'),
         emergencyServices: document.querySelector('.emergency-btn')
     };
 
@@ -59,9 +59,9 @@ document.addEventListener('DOMContentLoaded', () => {
                             // Placeholder for driver mode functionality
                             alert('Driver Mode activated');
                             break;
-                        case 'communityChat':
+                        case 'community':
                             // Placeholder for community chat functionality
-                            alert('Opening Community Chat');
+                            navigateTo('community');
                             break;
                         case 'emergencyServices':
                             // Placeholder for emergency services functionality
