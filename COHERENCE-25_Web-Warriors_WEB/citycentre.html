@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>City Centre Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="citycentre.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">City Centre</div>
+        </header>
+            <nav class="top-menu">
+                <button class="menu-btn language-btn">
+                    <i class="icon language-icon"></i>
+                    Language
+                <div class="language-btn"> </div></button>
+                <button class="menu-btn driver-mode-btn">
+                    <i class="icon driver-icon"></i>
+                    Driver Mode
+                </button>
+                <button class="menu-btn community-btn">
+                    <i class="icon community-icon"></i>
+                    Community Chat
+                </button>
+                <button class="menu-btn emergency-btn">
+                    <i class="icon emergency-icon"></i>
+                    Emergency Services
+                </button>
+            </nav>
+
+        <main class="dashboard">
+            <div class="dashboard-grid">
+                <a href="traffic.html"><div class="dashboard-card traffic-card">
+                    <div class="card-header">
+                        <h2>Traffic</h2>
+                        <button class="card-action-btn traffic-button">
+                            Check Traffic
+                            <i class="icon arrow-icon"></i>
+                        </button>
+                    </div>
+                    <div class="card-background traffic-bg"></div>
+                </div></a>
+
+                <a href="weather.html"><div class="dashboard-card weather-card">
+                    <div class="card-header">
+                        <h2>Weather</h2>
+                        <button class="card-action-btn weather-button">
+                            Check Weather
+                            <i class="icon arrow-icon"></i>
+                        </button>
+                    </div>
+                    <div class="card-background weather-bg"></div>
+                </div></a>
+
+                <a href="pollution.html"><div class="dashboard-card pollution-card">
+                    <div class="card-header">
+                        <h2>Pollution</h2>
+                        <button class="card-action-btn pollution-button">
+                            Check Pollution
+                            <i class="icon arrow-icon"></i>
+                        </button>
+                    </div>
+                    <div class="card-background pollution-bg"></div>
+                </div></a>
+
+                <div class="dashboard-card alerts-card">
+                    <div class="card-header">
+                        <h2>Alerts</h2>
+                        <button class="card-action-btn alert-button">
+                            Check All Alerts
+                            <i class="icon arrow-icon"></i>
+                        </button>
+                    </div>
+                    <div class="card-background alert-bg"></div>
+                    <div class="card-overlay">
+                        <div class="alert-buttons">
+                            <button class="alert-type traffic-alert">Traffic Alert</button>
+                            <button class="alert-type mishap-alert">Mishap Alert</button>
+                            <button class="alert-type calamity-alert">Calamity Alert</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="footer">
+            <div class="footer-content">
+                <p>&copy; 2025 City Centre Dashboard. All rights reserved.</p>
+            </div>
+        </footer>
+    </div>
+    <script src="citycentre.js"></script>
+</body>
+</html>
