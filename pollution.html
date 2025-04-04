@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Quality Index Checker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            text-align: center;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .search-container {
+            display: flex;
+            margin-bottom: 20px;
+        }
+        #city {
+            flex-grow: 1;
+            padding: 12px 15px;
+            border: 2px solid #3498db;
+            border-radius: 5px 0 0 5px;
+            font-size: 16px;
+        }
+        #getPollution {
+            padding: 12px 20px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        #getPollution:hover {
+            background-color: #2980b9;
+        }
+        #pollutionResult {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: left;
+            box-shadow: inset 0 2px 4px rgba(0,0,0,0.1);
+        }
+        #pollutionResult h3 {
+            color: #2c3e50;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+            margin-bottom: 15px;
+        }
+        .pollutant-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+        .pollutant-item:last-child {
+            border-bottom: none;
+        }
+        .pollutant-label {
+            color: #7f8c8d;
+            font-weight: 500;
+        }
+        .pollutant-value {
+            color: #2c3e50;
+            font-weight: 600;
+        }
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+                padding: 20px;
+            }
+            .search-container {
+                flex-direction: column;
+            }
+            #city, #getPollution {
+                width: 100%;
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Air Quality Index Checker</h1>
+        <div class="search-container">
+            <input type="text" id="city" placeholder="Enter city name">
+            <button id="getPollution">Check Air Quality</button>
+        </div>
+        <div id="pollutionResult">
+            <p>Enter a city to view its air quality information.</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('getPollution').addEventListener('click', function() {
+            const city = document.getElementById('city').value.trim();
+
+            if (!city) {
+                document.getElementById('pollutionResult').innerHTML = `<p>Please enter a city.</p>`;
+                return;
+            }
+
+            const apiKey = "3a05236f47c262368361efb7e259df45";
+
+            // Step 1: Get latitude and longitude of the city
+            fetch(`https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=${apiKey}`)
+                .then(response => response.json())
+                .then(locationData => {
+                    if (locationData.length === 0) {
+                        throw new Error("City not found.");
+                    }
+                    
+                    const lat = locationData[0].lat;
+                    const lon = locationData[0].lon;
+
+                    // Step 2: Get air pollution data using latitude and longitude
+                    return fetch(`https://api.openweathermap.org/data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`);
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const aqi = data.list[0].main.aqi;
+                    const pollutants = data.list[0].components;
+
+                    // AQI Description
+                    const aqiDescriptions = ["Good", "Fair", "Moderate", "Poor", "Very Poor"];
+                    const aqiColor = ["#00e400", "#ffff00", "#ff7e00", "#ff0000", "#8f3f97"];
+
+                    document.getElementById('pollutionResult').innerHTML = `
+                        <h3>${city} Air Quality</h3>
+                        <div class="pollutant-item">
+                            <span class="pollutant-label">Air Quality Index (AQI)</span>
+                            <span class="pollutant-value" style="color: ${aqiColor[aqi - 1]};">${aqi} - ${aqiDescriptions[aqi - 1]}</span>
+                        </div>
+                        <div class="pollutant-item">
+                            <span class="pollutant-label">PM2.5</span>
+                            <span class="pollutant-value">${pollutants.pm2_5} µg/m³</span>
+                        </div>
+                        <div class="pollutant-item">
+                            <span class="pollutant-label">PM10</span>
+                            <span class="pollutant-value">${pollutants.pm10} µg/m³</span>
+                        </div>
+                        <div class="pollutant-item">
+                            <span class="pollutant-label">NO2 (Nitrogen Dioxide)</span>
+                            <span class="pollutant-value">${pollutants.no2} µg/m³</span>
+                        </div>
+                        <div class="pollutant-item">
+                            <span class="pollutant-label">SO2 (Sulfur Dioxide)</span>
+                            <span class="pollutant-value">${pollutants.so2} µg/m³</span>
+                        </div>
+                        <div class="pollutant-item">
+                            <span class="pollutant-label">O3 (Ozone)</span>
+                            <span class="pollutant-value">${pollutants.o3} µg/m³</span>
+                        </div>
+                        <div class="pollutant-item">
+                            <span class="pollutant-label">CO (Carbon Monoxide)</span>
+                            <span class="pollutant-value">${pollutants.co} µg/m³</span>
+                        </div>
+                    `;
+                })
+                .catch(error => {
+                    document.getElementById('pollutionResult').innerHTML = `<p>${error.message}</p>`;
+                });
+        });
+    </script>
+</body>
+</html>
